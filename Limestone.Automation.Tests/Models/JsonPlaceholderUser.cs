@@ -1,0 +1,9 @@
+namespace Limestone.Automation.Tests.Models;
+
+public class JsonPlaceholderUser
+{
+    public int Id { get; init; }
+    public string? Name { get; init; }
+    public string? Username { get; init; }
+    public string? Email { get; init; }
+}
