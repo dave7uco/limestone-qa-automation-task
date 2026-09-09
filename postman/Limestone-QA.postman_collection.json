@@ -1,0 +1,114 @@
+{
+  "info": {
+    "_postman_id": "c7537637-785f-43a7-b1ba-14b3962c8bd7",
+    "name": "Limestone QA",
+    "description": "JSONPlaceholder API checks for the Limestone QA practical assignment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get users",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const users = pm.response.json();",
+              "",
+              "pm.test(\"Response body is an array\", function () {",
+              "    pm.expect(users).to.be.an(\"array\");",
+              "});",
+              "",
+              "if (Array.isArray(users)) {",
+              "    users.forEach(function (user, index) {",
+              "        [\"id\", \"name\", \"username\", \"email\"].forEach(function (property) {",
+              "            pm.test(`User ${index + 1}: ${property} is populated`, function () {",
+              "                pm.expect(user).to.have.property(property);",
+              "                pm.expect(user[property]).to.not.be.null;",
+              "                pm.expect(user[property]).to.not.be.undefined;",
+              "                pm.expect(user[property]).to.not.eql(\"\");",
+              "            });",
+              "        });",
+              "    });",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get posts for user 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const posts = pm.response.json();",
+              "",
+              "pm.test(\"Response body is an array\", function () {",
+              "    pm.expect(posts).to.be.an(\"array\");",
+              "});",
+              "",
+              "if (Array.isArray(posts)) {",
+              "    posts.forEach(function (post, index) {",
+              "        [\"userId\", \"id\", \"title\", \"body\"].forEach(function (property) {",
+              "            pm.test(`Post ${index + 1}: ${property} is populated`, function () {",
+              "                pm.expect(post).to.have.property(property);",
+              "                pm.expect(post[property]).to.not.be.null;",
+              "                pm.expect(post[property]).to.not.be.undefined;",
+              "                pm.expect(post[property]).to.not.eql(\"\");",
+              "            });",
+              "        });",
+              "    });",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/posts?userId=1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "posts"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
